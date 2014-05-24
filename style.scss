@@ -17,9 +17,10 @@ $grid-gutter-width: 20px;
 $container-tablet: 744px;
 $container-desktop: 960px;
 $container-large-desktop: 1140px;
-$brand-primary: #C11515;
+$brand-primary: #943D8A;
 $font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$headings-font-weight: 600;
+$headings-font-family:  "tekton-pro-n7", "tekton-pro" , sans-serif;
+$headings-font-weight: 700;
 $badge-color: #999;
 $badge-link-hover-color: #999;
 $badge-bg: #f1f1f1;
@@ -84,7 +85,8 @@ blockquote:last-child {
 	line-height: 1;
 }
 #site-title a {
-	font-weight: normal;
+	font-family: "tekton-pro", sans-serif;
+	font-weight: 700;
 	color: #fff;
 }
 #site-description {
@@ -101,6 +103,9 @@ blockquote:last-child {
 #header .navbar-collapse {
 	max-height: none;
 	border-color: rgba(255,255,255,0.3);
+}
+.home #header.navbar {
+	border-bottom: none;
 }
 .navbar-default {
 
@@ -147,6 +152,53 @@ blockquote:last-child {
 		margin-top: 0;
 		display: block;
 	}
+}
+.banner.jumbotron {
+	background: $brand-primary url('img/variation-2.jpg') no-repeat scroll center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding: 250px 0;
+
+	@media (max-width:$screen-sm - 1){
+		& {
+			padding: 70px 0;
+		}
+	}
+
+	.banner-note {
+		background-color: $brand-primary;
+		width: 300px;
+		height: 300px;
+		padding: 20px;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin-top: -155px;
+		-webkit-transform: rotate(-1.5deg); 
+		-ms-transform: rotate(-1.5deg);
+		transform: rotate(-1.5deg);
+		-webkit-box-shadow: 3px 3px 7px 0 #000;
+  		-moz-box-shadow:    3px 3px 7px 0 #000;
+		box-shadow: 3px 3px 7px 0 #000;
+
+		@media (max-width:$screen-sm - 1){
+			& {
+				position: static;
+				top: auto;
+				left: auto;
+				width: auto;
+				height: auto;
+				margin: auto;
+				-webkit-transform: none; 
+				-ms-transform: none;
+				transform: none;
+			}
+		}
+
+	}
+
 }
 
 /* Breadcrumb
@@ -449,6 +501,16 @@ img.wp-smiley {
 	margin: 35px 0 0 0;
 }
 
+.lead {
+	font-family: "tekton-pro-n4", "tekton-pro", "sans-serif";
+	font-weight: 400;
+	font-size: 18px;
+
+	@media (min-width: $screen-sm-min) {
+		font-size: 22px;
+	}
+}
+
 /* Pagination
 ================================================*/
 
@@ -654,7 +716,7 @@ img.wp-smiley {
 	}
 	#sidebar-primary {
 		float: left; 
-		width: 300px; 
+		width: 220px; 
 		margin-bottom: 20px;
 	}
 }
@@ -789,7 +851,7 @@ img.wp-smiley {
 		}
 		#sidebar-primary{
 			float: right;
-			width: 228px;
+			width: 165px;
 			margin-bottom: 20px;
 		}
 	}
@@ -800,7 +862,7 @@ img.wp-smiley {
 		}
 		#sidebar-primary {
 			float: left;
-			width: 228px;
+			width: 165px;
 			margin-bottom: 20px;
 		}
 	}
@@ -820,7 +882,7 @@ img.wp-smiley {
 		}
 		#sidebar-primary { 
 			float: right; 
-			width: 360px; 
+			width: 265px; 
 			margin-bottom: 20px;
 		}
 	}
@@ -831,7 +893,7 @@ img.wp-smiley {
 		}
 		#sidebar-primary {
 			float: left;
-			width: 360px;
+			width: 265px;
 			margin-bottom: 20px;
 		}
 	}

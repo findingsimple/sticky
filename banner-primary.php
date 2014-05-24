@@ -15,9 +15,13 @@ $subtext = ( ! hybrid_get_setting( 'banner-subtext' ) ) ? get_bloginfo('descript
 
 	<div class="container">
 
-  		<h1><?php echo $headline; ?></h1>
+		<div class="banner-note">
 
-  		<p><?php echo $subtext; ?></p> 
+			<h1><?php echo $headline; ?></h1>
+
+			<p><?php echo $subtext; ?></p>
+
+  		</div>
 
 	</div><!-- .container -->
 

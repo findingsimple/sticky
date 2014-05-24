@@ -17,6 +17,8 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<script type="text/javascript" src="//use.typekit.net/epm2mjg.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 <?php wp_head(); // wp_head ?>
 </head>
 
