@@ -18,7 +18,7 @@ $container-tablet: 744px;
 $container-desktop: 960px;
 $container-large-desktop: 1140px;
 $brand-primary: #943D8A;
-$font-size-base: 16px;
+$font-size-base: 15px;
 $font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $headings-font-family:  "tekton-pro-n7", "tekton-pro" , sans-serif;
 $headings-font-weight: 700;
@@ -185,7 +185,7 @@ blockquote:last-child {
 		box-shadow: 3px 3px 7px 0 #000;
 
 		h1, .h1 {
-			font-size: 2.8em;
+			font-size: 2.9em;
 		}
 
 		@media (max-width:$screen-sm - 1){
