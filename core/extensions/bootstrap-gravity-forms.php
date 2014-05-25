@@ -53,6 +53,12 @@ function add_form_control_class( $field_content, $field, $value, $something, $fo
             $node->setAttribute( "class" , $classes );
         }
 
+        foreach($x->query("//*[contains(@class, 'gfield_description')]") as $node) {   
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' help-block';
+            $node->setAttribute( "class" , $classes );
+        }
+
         foreach($x->query("//input[@type='text']") as $node) {   
             $classes = $node->getAttribute( "class" );
             $classes .= ' form-control';
@@ -214,5 +220,3 @@ function add_form_confirmation_class( $confirmation, $form, $lead, $ajax ){
     return $confirmation;
 
 }
-
-
