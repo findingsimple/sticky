@@ -693,6 +693,21 @@ img.wp-smiley {
 	font-size: 1.4em;
 }
 
+/* Gravity Forms
+================================================*/
+
+.gform_wrapper {
+ 
+	ul {
+		@extend .list-unstyled;
+	}
+
+	.gfield_required {
+		padding-left: 3px;
+		color: $state-danger-text;
+	}
+}
+
 /* Layouts
 ================================================*/
 

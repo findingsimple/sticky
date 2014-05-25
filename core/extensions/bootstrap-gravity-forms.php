@@ -12,21 +12,23 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
  */
 if ( class_exists('GFForms') ) {
 
-	add_action("gform_field_css_class", "add_form_group_class", 10, 3);
-	add_filter("gform_field_content", "add_form_control_class", 10, 5);
-	add_filter("gform_submit_button", "form_submit_button", 10, 2);
+    add_action("gform_field_css_class", "add_form_group_class", 10, 3);
+    add_filter("gform_field_content", "add_form_control_class", 10, 5);
+    add_filter("gform_submit_button", "form_submit_button", 10, 2);
+    add_filter("gform_validation_message", "add_form_validation_class", 10, 2);
+    add_filter("gform_confirmation", "add_form_confirmation_class", 10, 4);
 
 }
-
-
 
 /**
  * Add form-group class to field wrappers
  */
 function add_form_group_class( $classes, $field, $form ){
 
-    if ( !is_admin() )
+    if ( !is_admin() ) {
         $classes .= " form-group";
+        $classes = str_replace("gfield_error", "has-error", $classes);
+    }
 
     return $classes;
 
@@ -44,6 +46,12 @@ function add_form_control_class( $field_content, $field, $value, $something, $fo
         @$dom->loadHTML($field_content);
 
         $x = new DOMXPath($dom);
+
+        foreach($x->query("//label") as $node) {   
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' control-label';
+            $node->setAttribute( "class" , $classes );
+        }
 
         foreach($x->query("//input[@type='text']") as $node) {   
             $classes = $node->getAttribute( "class" );
@@ -87,6 +95,36 @@ function add_form_control_class( $field_content, $field, $value, $something, $fo
             $node->setAttribute( "class" , $classes );
         }
 
+        foreach($x->query("//*[@class='gfield_radio']") as $node) { 
+            if ($node->hasChildNodes()) {
+                foreach ($node->childNodes as $nodeChild) {
+                    $classes = $nodeChild->getAttribute( "class" );
+                    $classes .= ' radio';
+                    $nodeChild->setAttribute( "class" , $classes );
+                    $input = $nodeChild->firstChild;
+                    $nodeChild->removeChild($input);
+                    foreach($nodeChild->childNodes as $label) { 
+                        $label->insertBefore( $input, $label->firstChild );
+                    }
+                }
+            }
+        }
+
+        foreach($x->query("//*[@class='gfield_checkbox']") as $node) {   
+            if ($node->hasChildNodes()) {
+                foreach ($node->childNodes as $nodeChild) {
+                    $classes = $nodeChild->getAttribute( "class" );
+                    $classes .= ' checkbox';
+                    $nodeChild->setAttribute( "class" , $classes );
+                    $input = $nodeChild->firstChild;
+                    $nodeChild->removeChild($input);
+                    foreach($nodeChild->childNodes as $label) { 
+                        $label->insertBefore( $input, $label->firstChild );
+                    }
+                }
+            }
+        }
+
         $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
 
         return $newHtml;
@@ -107,3 +145,68 @@ function form_submit_button($button, $form){
     return "<button class='btn btn-primary " . $class . "' id='gform_submit_button_{$form["id"]}'>{$form["button"]["text"]}</button>";
     
 }
+
+
+/**
+ * Add the bootstrap alert class to validation error message
+ */
+function add_form_validation_class( $validation_message, $form ){
+
+   if ( !is_admin() ) {
+
+        $dom = new DOMDocument();
+
+        @$dom->loadHTML($validation_message);
+
+        $x = new DOMXPath($dom);
+
+        $classname="validation_error";
+
+        foreach($x->query("//div[contains(@class, '$classname')]") as $node) { 
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' alert alert-danger';
+            $node->setAttribute( "class" , $classes );
+        }
+
+        $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
+
+        return $newHtml;
+
+    }
+
+    return $validation_message;
+
+}
+
+/**
+ * Add the bootstrap alert class to the confirmation message
+ */
+function add_form_confirmation_class( $confirmation, $form, $lead, $ajax ){
+
+    if ( !is_admin() ) {
+
+        $dom = new DOMDocument();
+
+        @$dom->loadHTML($confirmation);
+
+        $x = new DOMXPath($dom);
+
+        $classname="gform_confirmation_message";
+
+        foreach($x->query("//div[contains(@class, '$classname')]") as $node) { 
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' alert alert-success';
+            $node->setAttribute( "class" , $classes );
+        }
+
+        $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
+
+        return $newHtml;
+
+    }
+
+    return $confirmation;
+
+}
+
+
