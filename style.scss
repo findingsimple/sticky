@@ -697,6 +697,11 @@ img.wp-smiley {
 ================================================*/
 
 .gform_wrapper {
+
+	img {
+		border: none !important;
+		padding: none !important;
+	}
  
 	ul {
 		@extend .list-unstyled;
