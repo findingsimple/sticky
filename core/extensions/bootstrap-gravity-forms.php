@@ -71,13 +71,19 @@ function add_form_control_class( $field_content, $field, $value, $something, $fo
             $node->setAttribute( "class" , $classes );
         }
 
-       foreach($x->query("//input[@type='number']") as $node) {   
+        foreach($x->query("//input[@type='number']") as $node) {   
             $classes = $node->getAttribute( "class" );
             $classes .= ' form-control';
             $node->setAttribute( "class" , $classes );
         }
 
-       foreach($x->query("//input[@type='url']") as $node) {   
+        foreach($x->query("//input[@type='url']") as $node) {   
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' form-control';
+            $node->setAttribute( "class" , $classes );
+        }
+
+        foreach($x->query("//input[@type='password']") as $node) {   
             $classes = $node->getAttribute( "class" );
             $classes .= ' form-control';
             $node->setAttribute( "class" , $classes );
