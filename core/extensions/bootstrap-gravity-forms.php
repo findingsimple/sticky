@@ -15,6 +15,8 @@ if ( class_exists('GFForms') ) {
     add_action("gform_field_css_class", "add_form_group_class", 10, 3);
     add_filter("gform_field_content", "add_form_control_class", 10, 5);
     add_filter("gform_submit_button", "form_submit_button", 10, 2);
+    add_filter("gform_next_button", "form_next_button", 10, 2);
+    add_filter("gform_previous_button", "form_previous_button", 10, 2);
     add_filter("gform_validation_message", "add_form_validation_class", 10, 2);
     add_filter("gform_confirmation", "add_form_confirmation_class", 10, 4);
 
@@ -158,6 +160,27 @@ function form_submit_button($button, $form){
     
 }
 
+/**
+ * Filter gravity forms button classes
+ */
+function form_next_button($button, $form){
+
+    $button = str_replace("class='button", "class='btn btn-info", $button );
+
+    return $button;
+    
+}
+
+/**
+ * Filter gravity forms button classes
+ */
+function form_previous_button($button, $form){
+
+    $button = str_replace("class='button", "class='btn btn-info", $button );
+
+    return $button;
+    
+}
 
 /**
  * Add the bootstrap alert class to validation error message
