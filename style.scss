@@ -95,7 +95,9 @@ blockquote:last-child {
 .admin-bar #header {
 	top: 32px;
 }
-.navbar-brand {
+.navbar-brand,
+#branding,
+.navbar-header {
 	padding-top: 0;
 }
 .wordpress .navbar-brand #site-title {
