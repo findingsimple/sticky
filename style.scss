@@ -91,6 +91,7 @@ blockquote:last-child {
 #header {
 	margin-bottom: 0;
 	z-index: 400;
+	overflow: hidden;
 }
 .admin-bar #header {
 	top: 32px;
@@ -98,7 +99,7 @@ blockquote:last-child {
 .navbar-brand,
 #branding,
 .navbar-header {
-	padding-top: 0;
+	padding: 0;
 }
 .wordpress .navbar-brand #site-title {
 	display: inline-block;
