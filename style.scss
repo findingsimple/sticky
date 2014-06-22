@@ -10,6 +10,13 @@
  * License URI: http://www.opensource.org/licenses/gpl-license.php
  */
 
+$sticky-dark-purple: #2E262E;
+$sticky-purple: #4A324A;
+$sticky-light-purple: #782D78; 
+$sticky-pink: #BF47BF;
+
+$brand-primary: $sticky-pink;
+
 /* Import Bootstrap and Customize Configuration
 ================================================*/
 
@@ -17,18 +24,31 @@ $grid-gutter-width: 20px;
 $container-tablet: 744px;
 $container-desktop: 960px;
 $container-large-desktop: 1140px;
-$brand-primary: #943D8A;
+
 $font-size-base: 15px;
 $font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$headings-font-family:  "tekton-pro-n7", "tekton-pro" , sans-serif;
-$headings-font-weight: 700;
+$headings-font-family: "ff-market-web" , cursive;
+$headings-font-weight: 400;
+
+$navbar-height: 80px;
+$navbar-default-color: $sticky-dark-purple;
+$navbar-default-bg: #fff;
+$navbar-default-link-color: $sticky-dark-purple;
+$navbar-default-link-hover-color: $sticky-purple;
+$navbar-default-link-active-color: $sticky-dark-purple;
+$navbar-default-border: $sticky-pink;
+$navbar-default-toggle-icon-bar-bg: $sticky-pink;
+$navbar-default-toggle-hover-bg: #f1f1f1;
+
+$jumbotron-color: lighten($brand-primary, 40%);
+$jumbotron-heading-color: #fff;
+
+$input-border-focus: $sticky-pink;
+
 $badge-color: #999;
 $badge-link-hover-color: #999;
 $badge-bg: #f1f1f1;
-$navbar-default-toggle-icon-bar-bg: #fff;
-$navbar-default-toggle-hover-bg: darken($brand-primary, 10%);
-$jumbotron-color: lighten($brand-primary, 40%);
-$jumbotron-heading-color: #fff;
+
 $icon-font-path: 'fonts/';
 
 /* Use for Child themes 
@@ -42,7 +62,7 @@ $woocommerce-font-path: '../nudie/woocommerce/fonts/';
 ================================================*/
  
 body {
-	padding-top: 50px;
+	padding-top: 80px;
 	background: #fff;
 }
  
@@ -69,7 +89,6 @@ blockquote:last-child {
 ================================================*/
 
 #header {
-	background: $brand-primary;
 	margin-bottom: 0;
 	z-index: 400;
 }
@@ -77,6 +96,7 @@ blockquote:last-child {
 	top: 32px;
 }
 .navbar-brand {
+	padding-top: 0;
 	margin-right: 20px;
 }
 .wordpress .navbar-brand #site-title {
@@ -86,9 +106,15 @@ blockquote:last-child {
 	line-height: 1;
 }
 #site-title a {
-	font-family: "tekton-pro", sans-serif;
+	font-family: $headings-font-family;
 	font-weight: 700;
-	color: #fff;
+	color: #2E262E;
+	width: 215px;
+	height: 80px;
+	text-indent: -999px;
+	overflow: hidden;
+	background: transparent url(img/logo.png) no-repeat scroll top left;
+	display: block;
 }
 #site-description {
 	display: none;
@@ -99,20 +125,17 @@ blockquote:last-child {
 
 #header.navbar {
 	margin-bottom: 0;
-	border-color: rgba(255,255,255,0.3);
 }
 #header .navbar-collapse {
 	max-height: none;
-	border-color: rgba(255,255,255,0.3);
 }
 .navbar-default {
 
 	.navbar-nav > li > a {
-		color: lighten($brand-primary, 30%);
-
+		
 		&:hover, 
 		&:focus {
-			color: #fff;
+
 		}
 	}
 	.navbar-nav > .active > a, 
@@ -121,14 +144,12 @@ blockquote:last-child {
 	.navbar-nav > .current_page_parent > a, 
 	.navbar-nav > .current_page_parent > a:hover, 
 	.navbar-nav > .current_page_parent > a:focus {
-		background-color: darken($brand-primary, 10%);
-		color: #fff;
+
 	}
 	.navbar-nav > .open > a, 
 	.navbar-nav > .open > a:hover, 
 	.navbar-nav > .open > a:focus {
-		background-color: darken($brand-primary, 10%);
-		color: #fff;
+
 	}
 	.navbar-toggle {
 		margin-right: 10px;
@@ -144,6 +165,7 @@ blockquote:last-child {
 	color: #fff;
 	margin-bottom: 0 !important;
 }
+
 .jumbotron {
 	h1,
 	.h1 {
@@ -158,6 +180,31 @@ blockquote:last-child {
 	-o-background-size: cover;
 	background-size: cover;
 	padding: 250px 0;
+	overflow: hidden;
+	position: relative;
+
+	.bg-color {
+		width: 100%;
+		height: 102%;
+		background: $brand-primary;
+		position: absolute;
+		top: 0;
+		left: 0;
+		  /* IE 8 */
+		  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+
+		  /* IE 5-7 */
+		  filter: alpha(opacity=60);
+
+		  /* Netscape */
+		  -moz-opacity: 0.6;
+
+		  /* Safari 1.x */
+		  -khtml-opacity: 0.6;
+
+		  /* Good browsers */
+		  opacity: 0.6;
+	}
 
 	@media (max-width:$screen-sm - 1){
 		& {
@@ -508,7 +555,7 @@ img.wp-smiley {
 }
 
 .lead {
-	font-family: "tekton-pro-n4", "tekton-pro", "sans-serif";
+	font-family: $headings-font-family;
 	font-weight: 400;
 	font-size: 18px;
 
@@ -823,21 +870,13 @@ img.wp-smiley {
 			position: absolute;
 			top: 0;
 			right: 0;
-			background-color: $brand-primary;
+			background-color: $navbar-default-bg;
 		}
 		.search-form {
 			.search-toggle a {
-				color: lighten($brand-primary, 30%);
 				font-size: 22px;
 				text-decoration: none;
 				padding: 4px;
-				
-				&:hover {
-					color:#fff;
-				}
-				&:focus {
-					color:#fff;
-				}
 			}
 			.form-group {
 				margin-left: 6px;

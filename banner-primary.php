@@ -13,16 +13,18 @@ $subtext = ( ! hybrid_get_setting( 'banner-subtext' ) ) ? get_bloginfo('descript
 ?>
 <div class="banner jumbotron" role="banner">
 
-	<div class="container">
+	<div class="bg-color"></div>
 
-		<div class="banner-note">
+		<div class="container">
 
-			<h1><?php echo $headline; ?></h1>
+			<div class="banner-note">
 
-			<p><?php echo $subtext; ?></p>
+				<h1><?php echo $headline; ?></h1>
 
-  		</div>
+				<p><?php echo $subtext; ?></p>
 
-	</div><!-- .container -->
+	  		</div>
+
+		</div><!-- .container -->
 
 </div><!-- .banner -->
