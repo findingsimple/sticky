@@ -164,6 +164,10 @@ blockquote:last-child {
 .loop-meta {
 	background-color: $brand-primary;
 	margin-bottom: 0 !important;
+	background-image: -webkit-linear-gradient(top, darken($brand-primary, 20%) 0,$brand-primary 100%);
+	background-image: linear-gradient(to bottom, darken($brand-primary, 20%) 0,$brand-primary 100%);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='darken($brand-primary, 20%)', endColorstr='$brand-primary', GradientType=0)
 }
 
 .jumbotron {
@@ -794,6 +798,10 @@ img.wp-smiley {
 
 }
 @media (max-width:$screen-sm - 1){
+
+	#header {
+		overflow: hidden;
+	}
 		
 	.container {
 		width: auto;
