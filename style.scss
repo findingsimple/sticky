@@ -101,10 +101,13 @@ blockquote:last-child {
 	padding: 0;
 }
 .wordpress .navbar-brand #site-title {
-	display: inline-block;
-	margin: 0;
+	display: block;
+	width: 215px;
+	height: 80px;
+	margin: 0 !important;
 	font-size: 18px;
-	line-height: 1;
+	line-height: 1 !important;
+	padding-top: 0 !important;
 }
 #site-title a {
 	font-family: $headings-font-family;
@@ -112,6 +115,8 @@ blockquote:last-child {
 	color: #2E262E;
 	width: 215px;
 	height: 80px;
+	padding: 0;
+	margin: 0;
 	text-indent: -999px;
 	overflow: hidden;
 	background: transparent url(img/logo.png) no-repeat scroll top left;
