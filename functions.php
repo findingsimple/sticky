@@ -139,8 +139,8 @@ function sticky_theme_setup() {
  */
 function modify_page_support() {
 	add_post_type_support('page','excerpt');
-	//remove_post_type_support('page', 'comments' );
-	//remove_post_type_support('page', 'trackbacks' );
+	remove_post_type_support('page', 'comments' );
+	remove_post_type_support('page', 'trackbacks' );
 }
 
 /**
