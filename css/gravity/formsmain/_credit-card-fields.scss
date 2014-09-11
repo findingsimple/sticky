@@ -39,6 +39,9 @@
 
 			input.ginput_card_security_code {
 				max-width: 50% !important;
+				display: -moz-inline-stack;
+				display: inline-block;
+				zoom: 1;
 			}
 			span.ginput_card_security_code_icon {
 				width: 32px;

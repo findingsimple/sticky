@@ -10,14 +10,6 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
 class Core {
 
 	/**
-	 * PHP4 constructor method.  This simply provides backwards compatibility for users with setups
-	 * on older versions of PHP.  Once WordPress no longer supports PHP4, this method will be removed.
-	 */
-	function Core() {
-		$this->__construct();
-	}
-
-	/**
 	 * Constructor method for the Core class.  This method adds other methods of the class to 
 	 * specific hooks within WordPress.  It controls the load order.
 	 */
@@ -81,9 +73,6 @@ class Core {
 
 		/* Bootstrap editor styles */
 		require_once( CORE_DIR . '/extensions/bootstrap-editor-styles.php' );
-
-		/* Entry Updated Shortcode */
-		require_once( CORE_DIR . '/extensions/entry-updated.php' );
 
 	}
 

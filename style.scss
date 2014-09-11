@@ -51,6 +51,8 @@ $badge-bg: #f1f1f1;
 
 $icon-font-path: 'fonts/';
 
+$breadcrumb-bg: #f1f1f1;
+
 /* Use for Child themes 
 $icon-font-path: '../nudie/fonts/';
 $woocommerce-font-path: '../nudie/woocommerce/fonts/';
@@ -85,6 +87,23 @@ blockquote:last-child {
 	margin-bottom: 0;
 }
 
+button,
+input[type=submit],
+a {
+	outline: none;
+	transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-webkit-transition: all .25s ease;
+}
+
+a {
+	text-decoration: none !important;
+
+	&:focus {
+		outline: none;
+	}
+}
+
 /* Header 
 ================================================*/
 
@@ -99,6 +118,9 @@ blockquote:last-child {
 #branding,
 .navbar-header {
 	padding: 0;
+}
+#branding {
+	margin-right: 20px;
 }
 .wordpress .navbar-brand #site-title {
 	display: block;
@@ -809,14 +831,7 @@ img.wp-smiley {
 		padding-right: 0px;
 		padding-left: 0px;
 	}
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
-		color: lighten($brand-primary, 30%);
-	}
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, 
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-		background-color: darken($brand-primary, 10%);
-		color: #fff;
-	}
+
 	.navbar-default {
 		.search-form {
 			.search-toggle {

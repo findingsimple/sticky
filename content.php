@@ -8,15 +8,17 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
 
 if ( is_singular( 'post' ) ) { ?>
 
-<article <?php hybrid_post_attributes(); ?>>
+<article <?php hybrid_attr( 'post' ); ?>>
 
 	<header class="entry-header page-header">
-		<h1 class="entry-title"><?php single_post_title(); ?></h1>
+		<h1 <?php hybrid_attr( 'entry-title' ); ?>><?php single_post_title(); ?></h1>
 	</header><!-- .entry-header -->
 
-	<?php echo apply_atomic_shortcode( 'entry_byline', '<div class="entry-byline">' . __( 'Published by [entry-author] on [entry-published] [entry-comments-link before=" | "] [entry-edit-link before=" | "]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
+	<div class="entry-byline">
+		Published by <span <?php hybrid_attr( 'entry-author' ); ?>><?php the_author_posts_link(); ?></span> on <time <?php hybrid_attr( 'entry-published' ); ?>><?php echo get_the_date(); ?></time> <?php maybe_comments_link(); ?> <?php edit_post_link( 'Edit This', '| ' ); ?>
+	</div>
 
-	<div class="entry-content">
+	<div <?php hybrid_attr( 'entry-content' ); ?>>
 		<?php the_content(); ?>
 		<?php 
 		if ( function_exists( 'wp_link_pages_extended' ) ) {
@@ -28,21 +30,26 @@ if ( is_singular( 'post' ) ) { ?>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">' . __( '[entry-terms before="Posted in " taxonomy="category"] [entry-terms before="| Tagged "] [entry-updated]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
+		<div class="entry-meta">
+			<?php hybrid_post_terms( array( 'taxonomy' => 'category', 'text' => __( 'Posted in %s', hybrid_get_parent_textdomain() ) ) ); ?> <?php hybrid_post_terms( array( 'taxonomy' => 'post_tag', 'text' => __( 'Tagged %s', hybrid_get_parent_textdomain() ), 'before' => ' | ' ) ); ?>
+			<time class="updated" style="display:none;" datetime="<?php echo get_the_modified_time( 'Y-m-d\TH:i:sP' ); ?>" title="<?php echo get_the_modified_time( esc_attr__( 'l, F jS, Y, g:i a', hybrid_get_parent_textdomain() ) ); ?>"><?php echo get_the_modified_time( get_option( 'date_format' ) ) ?></time>
+		</div>
 	</footer><!-- .entry-footer -->
 
 </article><!-- .hentry -->
 
 <?php } else { ?>
 
-<article <?php hybrid_post_attributes(); ?>>
+<article <?php hybrid_attr( 'post' ); ?>>
 
 	<header class="entry-header">
-		<?php the_title( '<h2 class="entry-title"><a href="' . get_permalink() . '">', '</a></h2>' ); ?>
-		<?php echo apply_atomic_shortcode( 'entry_byline', '<div class="entry-byline">' . __( 'Published by [entry-author] on [entry-published] [entry-comments-link before=" | "] [entry-edit-link before=" | "]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
+		<?php the_title( '<h2 ' . hybrid_get_attr( 'entry-title' ) . '><a href="' . get_permalink() . '" rel="bookmark" itemprop="url">', '</a></h2>' ); ?>
+		<div class="entry-byline">
+			Published by <span <?php hybrid_attr( 'entry-author' ); ?>><?php the_author_posts_link(); ?></span> on <time <?php hybrid_attr( 'entry-published' ); ?>><?php echo get_the_date(); ?></time> <?php maybe_comments_link(); ?> <?php edit_post_link( 'Edit This', '| ' ); ?>
+		</div>
 	</header><!-- .entry-header -->
 
-	<div class="entry-summary">
+	<div <?php hybrid_attr( 'entry-summary' ); ?>>
 		<?php if ( current_theme_supports( 'get-the-image' ) ) get_the_image(); ?>
 		<?php the_excerpt(); ?>
 		<?php 
@@ -55,7 +62,10 @@ if ( is_singular( 'post' ) ) { ?>
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">
-		<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">' . __( '[entry-terms before="Posted in " taxonomy="category"] [entry-terms before="| Tagged "] [entry-updated]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
+		<div class="entry-meta">
+			<?php hybrid_post_terms( array( 'taxonomy' => 'category', 'text' => __( 'Posted in %s', hybrid_get_parent_textdomain() ) ) ); ?> <?php hybrid_post_terms( array( 'taxonomy' => 'post_tag', 'text' => __( 'Tagged %s', hybrid_get_parent_textdomain() ), 'before' => ' | ' ) ); ?>
+			<time class="updated" style="display:none;" datetime="<?php echo get_the_modified_time( 'Y-m-d\TH:i:sP' ); ?>" title="<?php echo get_the_modified_time( esc_attr__( 'l, F jS, Y, g:i a', hybrid_get_parent_textdomain() ) ); ?>"><?php echo get_the_modified_time( get_option( 'date_format' ) ) ?></time>
+		</div>
 	</footer><!-- .entry-footer -->
 
 </article><!-- .hentry -->

@@ -1,8 +1,8 @@
 <?php
 /**
- * @package    stickt
+ * @package    sticky
  * @subpackage Functions
- * @version    1.0.0
+ * @version    2.0.0
  * @author     Finding Simple
  * @copyright  Copyright (c) 2014, Finding Simple
  * @link       http://stickynote.co
@@ -21,7 +21,7 @@ require_once( trailingslashit( get_template_directory() ) . 'hybrid-core/hybrid.
 new Hybrid();
 
 /* Load the theme core. */
-require_once( trailingslashit( TEMPLATEPATH ) . 'core/core.php' );
+require_once( trailingslashit( get_template_directory() ) . 'core/core.php' );
 new Core();
 
 /* Do theme setup on the 'after_setup_theme' hook. */
@@ -37,16 +37,13 @@ function sticky_theme_setup() {
 	$prefix = hybrid_get_prefix();
 
 	/* Register menus. */
-	add_theme_support( 'hybrid-core-menus', array( 'primary', 'subsidiary' ) );
+	add_action( 'init', 'sticky_register_menus', 5 );
 
 	/* Register sidebars. */
-	add_theme_support( 'hybrid-core-sidebars', array( 'primary', 'subsidiary' ) );
-
-	/* Load scripts. */
-	add_theme_support( 'hybrid-core-scripts', array( 'comment-reply' ) );
+	add_action( 'widgets_init', 'sticky_register_sidebars', 5 );
 
 	/* Load widgets. */
-	add_theme_support( 'hybrid-core-widgets' );
+	//add_theme_support( 'hybrid-core-widgets' );
 
 	/* Load shortcodes. */
 	add_theme_support( 'hybrid-core-shortcodes' );
@@ -55,10 +52,21 @@ function sticky_theme_setup() {
 	add_theme_support( 'hybrid-core-template-hierarchy' );
 
 	/* Theme Settings */
-	add_theme_support( 'hybrid-core-theme-settings', array( 'footer', 'about' ) );
+	add_theme_support( 'hybrid-core-theme-settings' );
 
 	/* Enable theme layouts (need to add stylesheet support). */
-	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r' ), array( 'default' => '2c-l', 'customizer' => true ) );
+	add_theme_support(
+		'theme-layouts',
+		array(
+			'1c' => __( '1 Column', hybrid_get_parent_textdomain() ),
+			'2c-l' => __( '2 Columns: Content / Sidebar', hybrid_get_parent_textdomain() ),
+			'2c-r' => __( '2 Columns: Sidebar / Content', hybrid_get_parent_textdomain() )
+		),
+		array( 
+			'default' => is_rtl() ? '2c-r' :'2c-l',
+			'customizer' => true
+		)
+	);
 
 	/* Support pagination instead of prev/next links. */
 	add_theme_support( 'loop-pagination' );
@@ -106,9 +114,12 @@ function sticky_theme_setup() {
 	remove_action( 'wp_head', 'parent_post_rel_link_wp_head', 10, 0 );
 	remove_action( 'wp_head', 'start_post_rel_link_wp_head', 10, 0 );
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-
-	/* Add support for excerpts to pages */
-	add_post_type_support('page','excerpt');
+	remove_action( 'wp_head', 'hybrid_meta_template', 1 );
+	
+	/**
+	 * Modify page support
+	 */
+	add_action( 'init', 'modify_page_support' );
 
 	/* Filter hybrid thumbnail generation arguements */
 	add_filter( 'get_the_image_args', 'filter_thumbnail_args', 10, 1 );
@@ -116,14 +127,20 @@ function sticky_theme_setup() {
 	/* Filter permalink output */
 	add_filter( 'gettext', 'filter_permalink', 10, 3 );
 
-	/* Filter the default footer text */
-	add_filter("{$prefix}_default_theme_settings", 'default_footer_text' );
-
 	/**
 	 * Add Custom editor styles
 	 */
 	add_editor_style();
 	
+}
+
+/**
+ * Modify page support for excerpts, comments and trackbacks
+ */
+function modify_page_support() {
+	add_post_type_support('page','excerpt');
+	remove_post_type_support('page', 'comments' );
+	remove_post_type_support('page', 'trackbacks' );
 }
 
 /**
@@ -152,6 +169,40 @@ function sticky_remove_recent_comments_style() {
 add_action( 'widgets_init', 'sticky_remove_recent_comments_style' );
 
 /**
+* Registers nav menu locations.
+*/
+function sticky_register_menus() {
+
+	register_nav_menu( 'primary', _x( 'Primary', 'Primary Menu', hybrid_get_parent_textdomain() ) );
+
+	register_nav_menu( 'subsidiary', _x( 'Subsidiary', 'Secondary Menu', hybrid_get_parent_textdomain() ) );
+
+}
+
+/**
+* Registers sidebars.
+*/
+function sticky_register_sidebars() {
+
+	hybrid_register_sidebar(
+		array(
+			'id' => 'primary',
+			'name' => _x( 'Primary', 'sidebar', hybrid_get_parent_textdomain() ),
+			'description' => __( 'The main (primary) sidebar.', hybrid_get_parent_textdomain() )
+		)
+	);
+
+	hybrid_register_sidebar(
+		array(
+			'id' => 'subsidiary',
+			'name' => _x( 'Subsidiary', 'sidebar', 'hybrid-base' ),
+			'description' => __( 'The footer (subsidiary) sidebar.', hybrid_get_parent_textdomain() )
+		)
+	);
+
+}
+
+/**
  * Add/remove scripts
  */
 function sticky_add_remove_scripts(){
@@ -169,13 +220,13 @@ function sticky_add_remove_scripts(){
 	wp_enqueue_script( 'jquery' );	
 
 	/* Modernizr */
-	wp_enqueue_script( 'modernizr', THEME_URI . '/js/modernizr.min.js',array(),'2.7.1',false);
+	wp_enqueue_script( 'modernizr', THEME_URI . '/js/modernizr.min.js',array(),'2.8.3',false);
 
 	/* FitVids JS */
-	wp_enqueue_script( 'fitvids', THEME_URI . '/js/jquery.fitvids.min.js','jquery','1.0.3',true);
+	wp_enqueue_script( 'fitvids', THEME_URI . '/js/jquery.fitvids.min.js','jquery','1.1',true);
 
 	/* Twitter Bootstrap JS */
-	wp_enqueue_script( 'bootstrap', THEME_URI . '/js/bootstrap.min.js','jquery','3.1.0',true);
+	wp_enqueue_script( 'bootstrap', THEME_URI . '/js/bootstrap.min.js','jquery','3.2.0',true);
 
 	/* sticky JS */
 	wp_enqueue_script( 'sticky', THEME_URI . '/js/sticky.js','jquery','1',true);
@@ -210,4 +261,3 @@ function maybe_woocommerce() {
 	}
 
 }
-

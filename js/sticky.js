@@ -6,15 +6,30 @@ jQuery(document).ready(function(){
 
 	jQuery(".entry-content").fitVids();
 
+	var resized;
+
 	jQuery(window).resize(function() {
 
-	 	if ( Modernizr.mq('(max-width:767px)' ) ) {
+		clearTimeout(resized);
 
-			jQuery('#header .search-form .form-group').removeAttr('style'); 
+		resized = setTimeout(function() {
 
-		} 
+			if ( Modernizr.mq('(max-width:767px)' ) ) {
+
+				jQuery('#header .search-form .form-group').removeAttr('style'); 
+
+			}
+
+		}, 100);
+
+	});
+
+	jQuery('form.search-form').submit(function(e){
+
+		if( jQuery.trim( jQuery(this).find('input.search-text').val() ) == "" ){
+			return false;
+		}
 
 	});
 
 });
-

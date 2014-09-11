@@ -120,7 +120,7 @@ class Bootstrap_bbPress_Breadcrumb_Trail extends Breadcrumb_Trail {
 				/* Add the separators */
 				$item = $separator . $item ;				
 
-				$temp_array[] = '<li>' . $item . '</li>';
+				$temp_array[] = '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">' . $item . '</li>';
 
 			}
 
@@ -128,7 +128,7 @@ class Bootstrap_bbPress_Breadcrumb_Trail extends Breadcrumb_Trail {
 
 			/* Adds the 'trail-begin' class around the first item if there's more than one item. */
 			if ( !empty( $first_item ) )
-				array_unshift( $this->items, '<li class="trail-begin"><span class="breadcrumb-home"></span> ' . $first_item . '</li>' );
+				array_unshift( $this->items, '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="trail-begin"><span class="breadcrumb-home"></span> ' . $first_item . '</li>' );
 
 			/* Adds the 'trail-end' class around last item. */
 			if ( is_front_page() ) {

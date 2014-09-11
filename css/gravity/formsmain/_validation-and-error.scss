@@ -20,7 +20,7 @@
 			border-bottom: 1px solid #C89797;		
 		}
 		&.gfield_creditcard_warning {
-			margin-bottom: 6px !important;
+			margin-bottom: px !important;
 			padding: 6px 6px 4px 6px !important;
 			border: 1px dashed #C89797;
 
@@ -38,6 +38,7 @@
 				text-shadow: 0 1px 1px rgba(0,0,0,0.50);
 				line-height: 1.3em;
 				letter-spacing: 0.2pt;
+				margin-bottom: 6px;
 			}
 		}
 		+ li.gfield.gfield_creditcard_warning {

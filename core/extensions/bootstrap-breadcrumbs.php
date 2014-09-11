@@ -121,7 +121,7 @@ class Bootstrap_Breadcrumb_Trail extends Breadcrumb_Trail {
 				/* Add the separators */
 				$item = $separator . $item ;				
 
-				$temp_array[] = '<li>' . $item . '</li>';
+				$temp_array[] = '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">' . $item . '</li>';
 
 			}
 
@@ -129,7 +129,7 @@ class Bootstrap_Breadcrumb_Trail extends Breadcrumb_Trail {
 
 			/* Adds the 'trail-begin' class around the first item if there's more than one item. */
 			if ( !empty( $first_item ) )
-				array_unshift( $this->items, '<li class="trail-begin"><span class="breadcrumb-home"></span> ' . $first_item . '</li>' );
+				array_unshift( $this->items, '<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="trail-begin"><span class="breadcrumb-home"></span> ' . $first_item . '</li>' );
 
 			/* Adds the 'trail-end' class around last item. */
 			if ( is_front_page() ) {
@@ -167,5 +167,37 @@ class Bootstrap_Breadcrumb_Trail extends Breadcrumb_Trail {
 	}
 
 }
+
+/**
+ * Parse the thumbnail HTML to adjust the output to meet bootstrap HTML/CSS structure
+ */
+function breadcrumb_rich_snippets( $html, $args ) {
+
+    $dom = new DOMDocument();
+
+    @$dom->loadHTML($html);
+
+    $x = new DOMXPath($dom);
+
+    foreach($x->query("//a") as $node) {   
+
+        $node->setAttribute('itemprop','url');
+
+        $new_title = $dom->createElement('span', $node->nodeValue );
+        $new_title->setAttribute('itemprop','title');
+
+        $node->nodeValue = '';
+
+        $node->appendChild($new_title);
+
+    }
+
+    $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
+
+    return $newHtml;
+
+}
+
+add_filter( 'breadcrumb_trail', 'breadcrumb_rich_snippets', 99, 2);
 
 ?>

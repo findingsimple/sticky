@@ -12,6 +12,9 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
  */
 function get_the_image_anchor_class( $html, $post_id, $post_thumbnail_id ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -39,6 +42,9 @@ add_filter( 'post_thumbnail_html', 'get_the_image_anchor_class', 99, 3);
  */
 function avatar_img_circle_class( $html ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -64,6 +70,9 @@ add_filter('get_avatar', 'avatar_img_circle_class', 10, 1 );
  */
 function add_bootstrap_btn_class( $html, $args, $comment, $post ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -88,6 +97,9 @@ add_filter('comment_reply_link', 'add_bootstrap_btn_class', 10, 4 );
  * Parse the cleaner gallery HTML to adjust the output to meet bootstrap HTML/CSS structure
  */
 function cleaner_gallery_anchor_class( $html, $attachment_id, $attr, $cleaner_gallery_instance ) {
+
+    if ( ! $html )
+        return;
 
     $dom = new DOMDocument();
 
@@ -174,6 +186,9 @@ add_filter( 'the_password_form', 'bootstrap_password_form' );
  */
 function bootstrap_caledar_widget( $html ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -248,6 +263,9 @@ if ( in_array( 'bbpress/bbpress.php', apply_filters( 'active_plugins', get_optio
 
 function bootstrap_bbpress_pagination_links( $html, $r = '' ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -299,6 +317,9 @@ function bootstrap_bbpress_pagination_links( $html, $r = '' ) {
 
 function bootstrap_bbpress_pagination_links_topics( $html, $r = '' ) {
 
+    if ( ! $html )
+        return;
+
     $dom = new DOMDocument();
 
     @$dom->loadHTML($html);
@@ -326,6 +347,9 @@ function bootstrap_bbpress_pagination_links_topics( $html, $r = '' ) {
 }
 
 function bootstrap_bbpress_dropdowns( $html, $r ) {
+
+    if ( ! $html )
+        return;
 
     $dom = new DOMDocument();
 

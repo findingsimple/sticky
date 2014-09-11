@@ -12,6 +12,7 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
  */
 if ( class_exists('GFForms') ) {
 
+    add_action("init", "disable_gravity_forms_css" );
     add_action("gform_field_css_class", "add_form_group_class", 10, 3);
     add_filter("gform_field_content", "add_form_control_class", 10, 5);
     add_filter("gform_submit_button", "form_submit_button", 10, 2);
@@ -19,6 +20,17 @@ if ( class_exists('GFForms') ) {
     add_filter("gform_previous_button", "form_previous_button", 10, 2);
     add_filter("gform_validation_message", "add_form_validation_class", 10, 2);
     add_filter("gform_confirmation", "add_form_confirmation_class", 10, 4);
+
+}
+
+/**
+ * Set option to disable gravity forms styles
+ */
+function disable_gravity_forms_css() {
+    
+    if  ( ! get_option ( 'rg_gforms_disable_css' ) ) {
+        update_option( 'rg_gforms_disable_css', TRUE );
+    }
 
 }
 
@@ -40,10 +52,10 @@ function add_form_group_class( $classes, $field, $form ){
  * Add the bootstrap form-control class to inputs
  */
 function add_form_control_class( $field_content, $field, $value, $something, $form_id ){
-	
+    
     if ( !is_admin() ) {
 
-       	$dom = new DOMDocument();
+        $dom = new DOMDocument();
 
         @$dom->loadHTML($field_content);
 
