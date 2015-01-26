@@ -118,12 +118,6 @@ if ( ( is_home() && is_front_page() ) || ( is_page() && is_front_page() )  )
 
 			<h1 class="loop-title"><?php single_post_title(); ?></h1>
 
-			<?php if( $post->post_excerpt ) { ?>
-			<div class="loop-description">
-				<p><?php echo $post->post_excerpt; ?></p>
-			</div><!-- .loop-description -->
-			<?php } ?>
-
 		<?php } elseif ( is_404() ) { ?>
 
 			<h1 class="loop-title"><?php _e( 'Nothing found', hybrid_get_parent_textdomain() ); ?></h1>

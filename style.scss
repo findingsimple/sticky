@@ -3,7 +3,7 @@
  * Theme URI: http://stickynote.co
  * Description: Sticky Note Consulting theme built on the Nudie WordPress Theme.
  * Tags: one-column, two-columns, right-sidebar, responsive-layout, custom-menu, featured-images, full-width-template, microformats, sticky-post, theme-options, threaded-comments
- * Version: 2.0.3
+ * Version: 2.0.4
  * Author: Finding Simple
  * Author URI: http://findingsimple.com
  * License: GPL-2.0+
@@ -205,6 +205,12 @@ a {
 		}
 	}
 }
+.singular-post .jumbotron h1,
+.singular-post .jumbotron .h1  {
+	padding-top: 8px;
+	text-align: center;
+	margin: 0 !important;
+}
 .banner.jumbotron {
 	background: $brand-primary url('img/variation-2.jpg') no-repeat scroll center center;
 	-webkit-background-size: cover;
@@ -288,19 +294,6 @@ a {
 
 	}
 
-}
-
-/* Breadcrumb
-================================================*/
-
-.breadcrumb-bar {
-	background: #f1f1f1;
-	padding: 5px 0;
-}
-.breadcrumb {
-	padding-left: 0;
-	padding-right: 0;
-	margin-bottom: 0;
 }
 
 /* Main Content
@@ -951,6 +944,22 @@ img.wp-smiley {
 	#sidebar-subsidiary .widget {
 		float: left; 
 		width: 360px; 
+	}
+
+}
+
+.singular-post #content {
+	width: 740px;
+	margin:0 auto;
+	float: none !important;
+
+	@media (max-width:$screen-md) {
+		width: auto;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	@media (min-width:$screen-lg) {
+		width: 740px;
 	}
 
 }
