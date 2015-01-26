@@ -226,6 +226,11 @@ a {
 	padding-top: 8px;
 	text-align: center;
 	margin: 0 !important;
+	font-size: 70px;
+
+	@media (max-width:$screen-sm - 1){
+		font-size: 46px;
+	}
 }
 .banner.jumbotron {
 	background: $brand-primary url('img/variation-2.jpg') no-repeat scroll center center;
