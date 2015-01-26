@@ -5,10 +5,12 @@ body.wp-autoresize {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding:  10px !important;
 	max-width: 740px  !important;
+	background: #fff !important;
 }
 
 body#tinymce.layout-1c.wp-editor,
 body.layout-1c.wp-autoresize {
 	max-width: 1140px !important;
+	background: #fff !important;
 }
 

@@ -229,7 +229,7 @@ function sticky_add_remove_scripts(){
 	wp_enqueue_script( 'bootstrap', THEME_URI . '/js/bootstrap.min.js','jquery','3.2.0',true);
 
 	/* sticky JS */
-	wp_enqueue_script( 'sticky', THEME_URI . '/js/sticky.js','jquery','1',true);
+	wp_enqueue_script( 'sticky', THEME_URI . '/js/sticky.js','jquery',$parent['Version'],true);
 	
 }
 
@@ -261,3 +261,15 @@ function maybe_woocommerce() {
 	}
 
 }
+
+/**
+ * Disable jquery migrate script
+ */
+function remove_jquery_migrate( &$scripts ) {
+    if(!is_admin()) {
+        $scripts->remove( 'jquery');
+        $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.10.2' );
+    }
+}
+
+add_filter( 'wp_default_scripts', 'remove_jquery_migrate' );

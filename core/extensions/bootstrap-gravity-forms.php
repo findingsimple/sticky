@@ -16,8 +16,8 @@ if ( class_exists('GFForms') ) {
     add_action("gform_field_css_class", "add_form_group_class", 10, 3);
     add_filter("gform_field_content", "add_form_control_class", 10, 5);
     add_filter("gform_submit_button", "form_submit_button", 10, 2);
-    add_filter("gform_next_button", "form_next_button", 10, 2);
-    add_filter("gform_previous_button", "form_previous_button", 10, 2);
+    add_filter("gform_next_button", "form_previous_next_button", 10, 2);
+    add_filter("gform_previous_button", "form_previous_next_button", 10, 2);
     add_filter("gform_validation_message", "add_form_validation_class", 10, 2);
     add_filter("gform_confirmation", "add_form_confirmation_class", 10, 4);
 
@@ -57,7 +57,7 @@ function add_form_control_class( $field_content, $field, $value, $something, $fo
 
         $dom = new DOMDocument();
 
-        @$dom->loadHTML($field_content);
+        @$dom->loadHTML(mb_convert_encoding($field_content, 'HTML-ENTITIES', 'UTF-8'));
 
         $x = new DOMXPath($dom);
 
@@ -175,24 +175,34 @@ function form_submit_button($button, $form){
 /**
  * Filter gravity forms button classes
  */
-function form_next_button($button, $form){
+function form_previous_next_button($button, $form){
 
-    $button = str_replace("class='button", "class='btn btn-info", $button );
+    if ( !is_admin() ) {
+
+        $dom = new DOMDocument();
+
+        @$dom->loadHTML(mb_convert_encoding($button, 'HTML-ENTITIES', 'UTF-8'));
+
+        $x = new DOMXPath($dom);
+
+        $classname="gform_confirmation_message";
+
+        foreach($x->query("//*[contains(@class, 'button')]") as $node) { 
+            $classes = $node->getAttribute( "class" );
+            $classes .= ' btn btn-info';
+            $node->setAttribute( "class" , $classes );
+        }
+
+        $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
+
+        return $newHtml;
+
+    }
 
     return $button;
     
 }
 
-/**
- * Filter gravity forms button classes
- */
-function form_previous_button($button, $form){
-
-    $button = str_replace("class='button", "class='btn btn-info", $button );
-
-    return $button;
-    
-}
 
 /**
  * Add the bootstrap alert class to validation error message
@@ -203,7 +213,7 @@ function add_form_validation_class( $validation_message, $form ){
 
         $dom = new DOMDocument();
 
-        @$dom->loadHTML($validation_message);
+        @$dom->loadHTML(mb_convert_encoding($validation_message, 'HTML-ENTITIES', 'UTF-8'));
 
         $x = new DOMXPath($dom);
 
@@ -234,7 +244,7 @@ function add_form_confirmation_class( $confirmation, $form, $lead, $ajax ){
 
         $dom = new DOMDocument();
 
-        @$dom->loadHTML($confirmation);
+        @$dom->loadHTML(mb_convert_encoding($confirmation, 'HTML-ENTITIES', 'UTF-8'));
 
         $x = new DOMXPath($dom);
 

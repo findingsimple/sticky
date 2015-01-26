@@ -17,7 +17,7 @@ function get_the_image_anchor_class( $html, $post_id, $post_thumbnail_id ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -26,7 +26,25 @@ function get_the_image_anchor_class( $html, $post_id, $post_thumbnail_id ) {
     }
 
     foreach($x->query("//img") as $node) {   
-        $node->removeAttribute("class");
+
+        $classes = explode(" ", $node->attributes->getNamedItem("class")->nodeValue);
+
+        $new_classes = array();
+
+        if ( ! empty( $classes ) ) {
+
+            $new_classes = array_diff( $classes, array('thumbnail') );
+
+        }
+
+        if ( ! empty ( $new_classes ) ) {
+
+            $new_classes = implode(" ", $new_classes );
+
+            $node->setAttribute("class", $new_classes );
+
+        }
+
     }
 
     $newHtml = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $dom->saveHTML());
@@ -47,7 +65,7 @@ function avatar_img_circle_class( $html ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -75,7 +93,7 @@ function add_bootstrap_btn_class( $html, $args, $comment, $post ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -103,7 +121,7 @@ function cleaner_gallery_anchor_class( $html, $attachment_id, $attr, $cleaner_ga
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -150,6 +168,7 @@ function bootstrap_comment_form_args( $args ) {
         'comment_notes_after'  => '',
         'id_form'              => 'commentform',
         'id_submit'            => 'submit',
+        'name_submit'          => 'submit',
         'title_reply'          => __( 'Leave a Reply', hybrid_get_parent_textdomain() ),
         'title_reply_to'       => __( 'Leave a Reply to %s', hybrid_get_parent_textdomain() ),
         'cancel_reply_link'    => __( 'Cancel reply', hybrid_get_parent_textdomain() ),
@@ -191,7 +210,7 @@ function bootstrap_caledar_widget( $html ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -253,6 +272,7 @@ if ( in_array( 'bbpress/bbpress.php', apply_filters( 'active_plugins', get_optio
 
     add_filter( 'bbp_get_forum_pagination_links', 'bootstrap_bbpress_pagination_links', 10, 2);
     add_filter( 'bbp_get_topic_pagination_links', 'bootstrap_bbpress_pagination_links', 10, 2);
+    add_filter( 'bbp_get_search_pagination_links', 'bootstrap_bbpress_pagination_links', 10, 2);
 
     add_filter( 'bbp_get_topic_pagination', 'bootstrap_bbpress_pagination_links_topics', 10, 2);
 
@@ -268,7 +288,7 @@ function bootstrap_bbpress_pagination_links( $html, $r = '' ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -322,7 +342,7 @@ function bootstrap_bbpress_pagination_links_topics( $html, $r = '' ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 
@@ -353,7 +373,7 @@ function bootstrap_bbpress_dropdowns( $html, $r ) {
 
     $dom = new DOMDocument();
 
-    @$dom->loadHTML($html);
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     $x = new DOMXPath($dom);
 

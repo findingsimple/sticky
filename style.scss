@@ -14,8 +14,9 @@ $sticky-dark-purple: #2E262E;
 $sticky-purple: #4A324A;
 $sticky-light-purple: #782D78; 
 $sticky-pink: #BF47BF;
+$sticky-pink-new: #a83ea8;
 
-$brand-primary: $sticky-pink;
+$brand-primary: $sticky-pink-new;
 
 /* Import Bootstrap and Customize Configuration
 ================================================*/
@@ -25,25 +26,29 @@ $container-tablet: 744px;
 $container-desktop: 960px;
 $container-large-desktop: 1140px;
 
-$font-size-base: 15px;
+$body-bg: #fff;
+
+$font-size-base: 18px;
 $font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $headings-font-family: "ff-market-web" , cursive;
 $headings-font-weight: 400;
 
+$navbar-border-radius: 0;
+$navbar-margin-bottom: 0;
 $navbar-height: 80px;
 $navbar-default-color: $sticky-dark-purple;
 $navbar-default-bg: #fff;
 $navbar-default-link-color: $sticky-dark-purple;
 $navbar-default-link-hover-color: $sticky-purple;
 $navbar-default-link-active-color: $sticky-dark-purple;
-$navbar-default-border: $sticky-pink;
-$navbar-default-toggle-icon-bar-bg: $sticky-pink;
+$navbar-default-border: $sticky-pink-new;
+$navbar-default-toggle-icon-bar-bg: $sticky-pink-new;
 $navbar-default-toggle-hover-bg: #f1f1f1;
 
 $jumbotron-color: lighten($brand-primary, 40%);
 $jumbotron-heading-color: #fff;
 
-$input-border-focus: $sticky-pink;
+$input-border-focus: $sticky-pink-new;
 
 $badge-color: #999;
 $badge-link-hover-color: #999;
@@ -52,6 +57,10 @@ $badge-bg: #f1f1f1;
 $icon-font-path: 'fonts/';
 
 $breadcrumb-bg: #f1f1f1;
+
+$thumbnail-padding: 0;
+$thumbnail-border: none;
+$thumbnail-border-radius: 0;
 
 /* Use for Child themes 
 $icon-font-path: '../nudie/fonts/';
@@ -63,9 +72,18 @@ $woocommerce-font-path: '../nudie/woocommerce/fonts/';
 /* Body & default link styling
 ================================================*/
  
-body {
-	padding-top: 80px;
-	background: #fff;
+a {
+	transition: color .25s ease;
+	-moz-transition: color .25s ease;
+	-webkit-transition: color .25s ease;
+	outline: none !important;
+
+	&:focus {
+		text-decoration: none;
+	}
+	&:hover {
+		text-decoration: none;
+	}
 }
  
 /* Headings, body, etc. adjustments
@@ -108,16 +126,17 @@ a {
 ================================================*/
 
 #header {
-	margin-bottom: 0;
 	z-index: 400;
-}
-.admin-bar #header {
-	top: 32px;
+	border: none;
 }
 .navbar-brand,
 #branding,
 .navbar-header {
 	padding: 0;
+}
+#header .navbar-form {
+	border: none !important;
+	box-shadow: none !important;
 }
 #branding {
 	margin-right: 20px;
@@ -141,7 +160,7 @@ a {
 	margin: 0;
 	text-indent: -999px;
 	overflow: hidden;
-	background: transparent url(img/logo.png) no-repeat scroll top left;
+	background: transparent url(img/logo.svg) no-repeat scroll 0 6px;
 	display: block;
 }
 #site-description {
@@ -152,36 +171,12 @@ a {
 ================================================*/
 
 #header.navbar {
-	margin-bottom: 0;
+	border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 #header .navbar-collapse {
 	max-height: none;
-}
-.navbar-default {
-
-	.navbar-nav > li > a {
-		
-		&:hover, 
-		&:focus {
-
-		}
-	}
-	.navbar-nav > .active > a, 
-	.navbar-nav > .active > a:hover, 
-	.navbar-nav > .active > a:focus,
-	.navbar-nav > .current_page_parent > a, 
-	.navbar-nav > .current_page_parent > a:hover, 
-	.navbar-nav > .current_page_parent > a:focus {
-
-	}
-	.navbar-nav > .open > a, 
-	.navbar-nav > .open > a:hover, 
-	.navbar-nav > .open > a:focus {
-
-	}
-	.navbar-toggle {
-		margin-right: 10px;
-	}
+	border: none;
+	box-shadow: none;
 }
 
 /* Banner Primary and Loop Meta
@@ -191,10 +186,10 @@ a {
 .loop-meta {
 	background-color: $brand-primary;
 	margin-bottom: 0 !important;
-	background-image: -webkit-linear-gradient(top, darken($brand-primary, 20%) 0,$brand-primary 100%);
+/*	background-image: -webkit-linear-gradient(top, darken($brand-primary, 20%) 0,$brand-primary 100%);
 	background-image: linear-gradient(to bottom, darken($brand-primary, 20%) 0,$brand-primary 100%);
 	background-repeat: repeat-x;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#772977', endColorstr='#bf47bf', GradientType=0)
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#772977', endColorstr='#bf47bf', GradientType=0) */
 }
 
 .jumbotron {
@@ -202,6 +197,12 @@ a {
 	.h1 {
 		margin-top: 0;
 		display: block;
+	}
+	@media (max-width:$screen-sm - 1){
+		& {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 .banner.jumbotron {
@@ -518,7 +519,7 @@ img.wp-smiley {
 	margin: 0 0 30px 0;
 	padding-bottom: 30px;
 }
-.hfeed .hentry {
+.archive .hentry {
 	margin: 0 0 25px 0;
 	padding-bottom: 30px;
 	border-bottom: 1px solid #eee;
@@ -559,6 +560,7 @@ img.wp-smiley {
 	font-size: 12px;
 	color: #999;
 }
+.blog .entry-byline,
 .singular .entry-byline {
 	margin: 0 0 25px 0;
 }
@@ -584,6 +586,7 @@ img.wp-smiley {
 	font-size: 12px; 
 	color: #999;
 }
+.blog .entry-meta,
 .singular .entry-meta { 
 	margin: 35px 0 0 0;
 }
@@ -741,7 +744,7 @@ img.wp-smiley {
 	.footer-content {
 		width: 50%;
 
-		.copyright {
+		.credit {
 			text-align: left;
 			padding-top: 10px;
 			padding-bottom: 10px;
@@ -810,19 +813,11 @@ img.wp-smiley {
 /* Responsive
 ================================================*/
 
-@media (max-width:600px) {
-
-	#header {
-		position: absolute;
-	}
-
-}
 @media (max-width:$screen-sm - 1){
 
 	#header {
 		overflow: hidden;
 	}
-		
 	.container {
 		width: auto;
 		padding: 0 20px;
@@ -873,7 +868,7 @@ img.wp-smiley {
 		.footer-content {
 			width: 100%;
 			clear: both;
-			.copyright {
+			.credit {
 				float: none;
 				text-align: center;
 				margin: 10px 0;
@@ -907,14 +902,6 @@ img.wp-smiley {
 		}
 	}
 	
-}
-
-@media (max-width:782px) {
-
-	.admin-bar #header {
-		top: 46px;
-	}
-
 }
 
 @media (min-width:$screen-sm) and (max-width:$screen-md){

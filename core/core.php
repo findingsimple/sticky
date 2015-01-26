@@ -41,12 +41,6 @@ class Core {
 		/* Implement Bootstrap Nav Structure */
 		require_once( CORE_DIR . '/extensions/bootstrap-nav-walker.php' );
 
-		/* Implement Bootstrap Breadcrumb Structure */
-		require_once( CORE_DIR . '/extensions/bootstrap-breadcrumbs.php' );
-
-		/* Implement Bootstrap bbPress Breadcrumb Structure */
-		require_once( CORE_DIR . '/extensions/bootstrap-bbpress-breadcrumbs.php' );
-
 		/* Modified Pagination functions for Bootstrap */
 		require_once( CORE_DIR . '/extensions/bootstrap-pagination.php' );
 
@@ -65,9 +59,6 @@ class Core {
 		/* Additional Function for Getting the excerpt by ID */
 		require_once( CORE_DIR . '/extensions/get-excerpt-by-id.php' );
 
-		/* Bootstrap tweaks for woocommerce */
-		require_once( CORE_DIR . '/extensions/bootstrap-woocommerce.php' );
-
 		/* Bootstrap tweaks for gravity forms */
 		require_once( CORE_DIR . '/extensions/bootstrap-gravity-forms.php' );
 
@@ -77,5 +68,24 @@ class Core {
 	}
 
 }
+
+/**
+ * Don't highlight blog for work items
+ */
+function custom_fix_blog_tab_on_cpt($classes,$item,$args) {
+
+    if(!is_singular('post') && !is_category() && !is_tag()) {
+        $blog_page_id = intval(get_option('page_for_posts'));
+        if($blog_page_id != 0) {
+            if($item->object_id == $blog_page_id) {
+				unset($classes[array_search('current_page_parent',$classes)]);
+			}
+        }
+    }
+
+    return $classes;
+}
+add_filter('nav_menu_css_class','custom_fix_blog_tab_on_cpt',10,3);
+
 
 ?>

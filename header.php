@@ -19,7 +19,7 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && basename( __FILE__ ) == basename(
 
 <body <?php hybrid_attr( 'body' ); ?>>
 
-	<header class="menu-container navbar navbar-fixed-top navbar-default" <?php hybrid_attr( 'header' ); ?>>
+	<header class="menu-container navbar navbar-default" <?php hybrid_attr( 'header' ); ?>>
 
 		<div class="container">
 

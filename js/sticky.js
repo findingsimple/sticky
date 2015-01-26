@@ -1,7 +1,8 @@
 jQuery(document).ready(function(){
 
 	jQuery('#header .search-toggle a').click(function(){
-	    jQuery('#header .search-form .form-group').animate({width: 'toggle'});
+		jQuery('#header .search-form .form-group').animate({width: 'toggle'});
+		jQuery('#header .search-form .form-group input.search-text').focus();
 	});
 
 	jQuery(".entry-content").fitVids();
