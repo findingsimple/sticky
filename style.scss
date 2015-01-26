@@ -222,6 +222,13 @@ a {
 			padding-right: 0;
 		}
 	}
+	p {
+		@media (max-width:$screen-sm - 1){
+			& {
+				font-size: 20px;
+			}
+		}
+	}
 }
 .singular-post .jumbotron h1,
 .singular-post .jumbotron .h1  {
