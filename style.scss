@@ -87,11 +87,6 @@ a {
 	}
 }
 
-blockquote {
-	font-style: italic;
-	font-weight: 300;
-	padding: 15px;
-}
  
 /* Headings, body, etc. adjustments
 ================================================*/
@@ -602,8 +597,13 @@ img.wp-smiley {
 }
 
 .entry-content {
+	p,
 	li {
-		margin-bottom: 12.5px;
+		margin-bottom: 16px;
+	}
+	blockquote {
+		font-style: italic;
+		font-weight: 300;
 	}
 }
 
