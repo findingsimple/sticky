@@ -81,7 +81,7 @@ function my_disable_sidebars( $sidebars_widgets ) {
 
     if ( current_theme_supports( 'theme-layouts' ) && ! is_admin() ) {
 
-        if ( 'layout-1c' == theme_layouts_get_layout() || is_singular() ) {
+        if ( 'layout-1c' == theme_layouts_get_layout() || is_singular('post') ) {
             $sidebars_widgets['primary'] = false;
             $sidebars_widgets['bbpress'] = false;
             $sidebars_widgets['woocommerce'] = false;
