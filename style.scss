@@ -217,6 +217,7 @@ a {
 	.h1 {
 		margin-top: 0;
 		display: block;
+		line-height: 1;
 	}
 	@media (max-width:$screen-sm - 1){
 		& {
