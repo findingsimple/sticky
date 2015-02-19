@@ -211,6 +211,8 @@ a {
 }
 
 .jumbotron {
+	text-align: center;
+
 	h1,
 	.h1 {
 		margin-top: 0;
@@ -229,6 +231,9 @@ a {
 			}
 		}
 	}
+}
+.home .jumbotron {
+	text-align: left;
 }
 .singular-post .jumbotron h1,
 .singular-post .jumbotron .h1  {
@@ -763,10 +768,10 @@ img.wp-smiley {
 	border-top: 1px solid #f1f1f1;
 	
 	.footer-content {
-		width: 50%;
+		width: 100%;
 
 		.credit {
-			text-align: left;
+			text-align: center;
 			padding-top: 10px;
 			padding-bottom: 10px;
 		}
@@ -802,7 +807,8 @@ img.wp-smiley {
 
 /* 1 Column Layout */
 .layout-1c #content {
-	width: 100%;
+	width: 740px;
+	margin: 0 auto;
 }
 
 /* Default / 2 Column Layout - Content on the left */
@@ -889,12 +895,6 @@ img.wp-smiley {
 		.footer-content {
 			width: 100%;
 			clear: both;
-			.credit {
-				float: none;
-				text-align: center;
-				margin: 10px 0;
-				clear: both;
-			}
 		}
 	}
 
@@ -926,6 +926,10 @@ img.wp-smiley {
 }
 
 @media (min-width:$screen-sm) and (max-width:$screen-md){
+
+	.layout-1c #content {
+		width: 620px;
+	}
 	
 	.layout-2c-l {
 		#content {
